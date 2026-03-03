@@ -1,4 +1,5 @@
 import React from "react";
+import ClientIcon from "../Components/UI-Blocks/ClientIcon";
 
 export default function Signup() {
     return (
@@ -7,9 +8,9 @@ export default function Signup() {
             <div className="flex w-full max-w-7xl ml-20 items-center justify-between">
 
                 <div className="text-white flex flex-col ">
-                    <div className="flex items-center gap-2 mb-10">
-                        <div className="w-3 h-3 rounded-full bg-teal-400"></div>
-                        <span className="text-gray-300 font-medium">aps</span>
+                    <div className="p-6 flex items-center gap-2 font-semibold text-lg ">
+                        <ClientIcon />
+                        aps
                     </div>
 
                     <h1 className="text-4xl lg:text-5xl font-semibold leading-tight">
@@ -33,7 +34,7 @@ export default function Signup() {
                         </ul>
                     </div>
 
-                    {/* TRUST SECTION */}
+               
                     <div className="mt-12 text-sm text-gray-400">
                         <p className="text-teal-400 font-medium">★ Trustpilot</p>
                         <p className="mt-1">
@@ -41,7 +42,7 @@ export default function Signup() {
                         </p>
                     </div>
                 </div>
-                {/* i wnt this to full righ side */}
+     
                 <div className="flex justify-end items-end mr-10">
                     <div
                         className="

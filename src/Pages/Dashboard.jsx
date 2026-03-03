@@ -1,61 +1,73 @@
-import React from "react";
-import { Ban, BlocksIcon, Home, RefreshCcw, SearchAlert, TriangleAlert } from "lucide-react";
+import React, { useState } from "react";
+import { ArrowDown, ArrowUp, Ban, Bell, BlocksIcon, CalendarCheck2, ClipboardCheck, Columns2, Home, LayoutDashboard, ListFilter, Plus, RefreshCcw, ScanText, Search, SearchAlert, SearchCheck, Settings, SettingsIcon, TriangleAlert, User } from "lucide-react";
+import ClientIcon from "../Components/UI-Blocks/ClientIcon";
 
 export default function Dashboard() {
+    const [activeItem, setActiveItem] = useState("Dashboard");
+
+    const menuItems = [
+        { label: "Dashboard", Icon: LayoutDashboard },
+        { label: "Projects", Icon: ClipboardCheck },
+        { label: "Scans", Icon: ScanText },
+        { label: "Schedule", Icon: CalendarCheck2 },
+        { label: "Notifications", Icon: Bell },
+        { label: "Settings", Icon: Settings },
+        { label: "Support", Icon: Info },
+    ];
+
     return (
         <div className="flex h-screen bg-gray-100 text-gray-800">
 
-            {/* SIDEBAR */}
-            <aside className="w-64 bg-white border-r flex flex-col">
-                <div className="p-6 flex items-center gap-2 font-semibold text-lg">
-                    <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
+            <aside className="w-64 bg-white border-r border-gray-100 flex flex-col">
+                <div className="p-6 flex items-center gap-2 font-semibold text-lg text-teal-600">
+                    <ClientIcon />
                     aps
                 </div>
 
                 <nav className="px-4 space-y-2 text-sm">
-                    <SidebarItem active label="Dashboard" />
-                    <SidebarItem label="Projects" />
-                    <SidebarItem label="Scans" />
-                    <SidebarItem label="Schedule" />
-                    <SidebarItem label="Notifications" />
-                    <SidebarItem label="Settings" />
-                    <SidebarItem label="Support" />
+                    {menuItems.map((item) => (
+                        <SidebarItem
+                            key={item.label}
+                            active={activeItem === item.label}
+                            label={item.label}
+                            Icon={item.Icon}
+                            onClick={() => setActiveItem(item.label)}
+                        />
+                    ))}
                 </nav>
 
-                {/* USER */}
+
                 <div className="mt-auto p-4 border-t flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-yellow-400"></div>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-yellow-400"><User /></div>
                     <div>
-                        <p className="text-sm font-medium">Security Lead</p>
                         <p className="text-xs text-gray-500">admin@edu.com</p>
+                        <p className="text-sm font-medium">Security Lead</p>
                     </div>
                 </div>
             </aside>
 
-            {/* MAIN CONTENT */}
+
             <div className="flex-1 flex flex-col">
 
-                {/* TOP BAR */}
-                <header className="bg-white border-b px-4 sm:px-6 lg:px-8 py-4">
+
+                <header className="border px-4 sm:px-6 lg:px-8 py-4 border-gray-200">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                        {/* Left Side - Breadcrumb */}
-                        <div className="flex items-center flex-wrap gap-2 text-sm sm:text-base font-medium text-gray-600">
+                        {/* Breadcrumb / Page Title */}
+                        <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base font-medium text-gray-600">
                             <span className="flex items-center gap-1">
                                 Scan <Home className="w-4 h-4" />
                             </span>
                             <span className="text-gray-400">/</span>
                             <span className="text-gray-400">Private Assets</span>
-
                             <span className="text-gray-400">/</span>
-
-                            <span className="text-teal-600 font-semibold">
+                            <span className="text-teal-600 font-semibold whitespace-nowrap">
                                 New Scan
                             </span>
                         </div>
 
-                        {/* Right Side - Buttons */}
-                        <div className="flex flex-wrap gap-3">
+                        {/* Action Buttons */}
+                        <div className="flex flex-wrap gap-2 sm:gap-3 mt-2 sm:mt-0">
                             <button className="px-4 py-2 border border-gray-300 font-semibold rounded-lg text-sm hover:bg-gray-50 transition">
                                 Export Report
                             </button>
@@ -67,59 +79,68 @@ export default function Dashboard() {
 
                     </div>
                 </header>
-                {/* CONTENT */}
                 <main className="p-8 overflow-auto">
 
-                    {/* INFO ROW */}
-                    <div className="flex flex-wrap gap-8 text-sm text-gray-500 mb-6">
-                        <Info label="Org" value="Project X" /> |
-                        <Info label="Owner" value="Namangiri" /> |
-                        <Info label="Total Scans" value="100" /> |
-                        <Info label="Scheduled" value="1000" /> |
-                        <Info label="Rescans" value="100" /> |
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 sm:gap-8 text-sm text-gray-500 mb-6 items-start sm:items-center">
+                        <Info label="Org" value="Project X" />
+                        <span className="hidden sm:inline">|</span>
+
+                        <Info label="Owner" value="Namangiri" />
+                        <span className="hidden sm:inline">|</span>
+
+                        <Info label="Total Scans" value="100" />
+                        <span className="hidden sm:inline">|</span>
+
+                        <Info label="Scheduled" value="1000" />
+                        <span className="hidden sm:inline">|</span>
+
+                        <Info label="Rescans" value="100" />
+                        <span className="hidden sm:inline">|</span>
+
                         <Info label="Failed Scans" value="100" />
-                        <span className="flex items-center gap-1">
+
+                        <span className="flex items-center gap-1 mt-2 sm:mt-0">
                             <RefreshCcw className="w-4 h-4 text-teal-400" /> 10 min ago
                         </span>
-
-
                     </div>
 
-                    {/* STATS */}
-                    <div className="grid grid-cols-4 gap-3 mb-8">
-                        
+                    <div className="grid lg:grid-cols-4 sm:grid-cols-1 gap-3 mb-8">
                         <StatCard title="Critical Severity" value="86" changeText="+2%" changeType="increase" Icon={Ban} IconColor="red" />
                         <StatCard title="High Severity" value="16" changeText="+0.9%" changeType="increase" Icon={TriangleAlert} IconColor="orange" />
                         <StatCard title="Medium Severity" value="26" changeText="-0.9%" changeType="decrease" Icon={TriangleAlert} IconColor="yellow" />
                         <StatCard title="Low Severity" value="16" changeText="+0.9%" changeType="increase" Icon={SearchAlert} IconColor="blue" />
                     </div>
 
-                    {/* TABLE CARD */}
-                    <div className="bg-white rounded-xl border p-6">
+                    <div className="rounded-xl p-6">
 
-                        {/* SEARCH BAR */}
-                        <div className="flex gap-3 mb-6">
-                            <input
-                                placeholder="Search scans by name or type..."
-                                className="flex-1 border rounded-lg px-4 py-2 text-sm"
-                            />
+                        <div className="flex flex-wrap gap-3 mb-6 items-center">
+                            <div className="relative flex-1 min-w-[220px]">
+                                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+                                <input
+                                    type="text"
+                                    placeholder="Search scans by name or type..."
+                                    className="w-full border border-gray-300 rounded-sm pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                                />
+                            </div>
 
-                            <button className="border px-4 rounded-lg text-sm">
+                            <button className="flex items-center gap-1 border border-gray-300 rounded-sm px-4 py-2 text-sm hover:bg-gray-100 transition">
+                                <ListFilter className="w-4 h-4" />
                                 Filter
                             </button>
 
-                            <button className="border px-4 rounded-lg text-sm">
+                            <button className="flex items-center gap-1 border border-gray-300 rounded-sm px-4 py-2 text-sm hover:bg-gray-100 transition">
+                                <Columns2 className="w-4 h-4" />
                                 Column
                             </button>
 
-                            <button className="bg-teal-600 text-white px-4 rounded-lg text-sm">
-                                + New scan
+                            <button className="flex items-center gap-1 bg-teal-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-teal-700 transition">
+                                <Plus className="w-4 h-4" />
+                                New scan
                             </button>
                         </div>
 
-                        {/* TABLE */}
-                        <table className="w-full text-sm">
-                            <thead className="text-gray-500 border-b">
+                        <table className="w-full text-sm min-w-[600px]">
+                            <thead className="text-gray-400 border-b bg-gray-50 ">
                                 <tr>
                                     <th className="text-left py-3">Scan Name</th>
                                     <th>Type</th>
@@ -132,7 +153,7 @@ export default function Dashboard() {
 
                             <tbody>
                                 {[1, 2, 3, 4, 5].map((i) => (
-                                    <tr key={i} className="border-b">
+                                    <tr key={i} className="text-sm font-medium">
                                         <td className="py-4">Web App Servers</td>
                                         <td className="text-center">Greybox</td>
                                         <td className="text-center">
@@ -159,17 +180,24 @@ export default function Dashboard() {
     );
 }
 
-/* ---------- COMPONENTS ---------- */
 
-const SidebarItem = ({ label, active }) => (
-    <div
-        className={`px-4 py-2 rounded-lg cursor-pointer ${active ? "bg-teal-100 text-teal-700" : "hover:bg-gray-100"
-            }`}
-    >
-        {label}
-    </div>
-);
 
+const SidebarItem = ({ label, active, Icon, onClick }) => {
+    return (
+        <div
+            onClick={onClick}
+            className={`px-4 py-2 rounded-full cursor-pointer transition-colors duration-200 
+        flex items-center gap-2
+        ${active
+                    ? "bg-teal-100 text-teal-700"
+                    : "hover:bg-gray-100 text-gray-600"
+                }`}
+        >
+            <Icon className="w-4 h-4" strokeWidth={2.5} />
+            <span className="font-medium">{label}</span>
+        </div>
+    );
+};
 const Info = ({ label, value, showcolon = true }) => (
     <div>
         <span className="text-gray-400">{label}{showcolon ? ":" : ""} </span>
@@ -177,51 +205,41 @@ const Info = ({ label, value, showcolon = true }) => (
     </div>
 );
 
-const Stat = ({ title, value, color, icon }) => (
-    <div className="border rounded-xl p-5">
-        <p className="text-sm text-gray-500 ">{title}</p>
-        <p className={`text-2xl font-semibold ${color}`}>{value}</p>
-    </div>
-);
-
-
 const StatCard = ({
   title,
   value,
   changeText,
-  changeType = "increase",  
+  changeType = "increase",
   Icon,
-  IconColor
+  IconColor = "teal",
 }) => {
   const isIncrease = changeType === "increase";
 
   return (
-    <div className="rounded-2xl p-6 flex justify-between items-start w-full max-w-sm">
-       
-      <div>
-        <p className="text-gray-400 text-sm font-medium">
-          {title}
-        </p>
-
-        <div className="flex items-end gap-3 mt-2">
-          <h2 className="text-3xl font-bold text-gray-800">
-            {value}
-          </h2>
-
-          <span
-            className={`text-sm font-small ${
-              isIncrease ? "text-red-500" : "text-green-500"
-            }`}
-          >
-            {isIncrease ? "↑" : "↓"} {changeText} {changeType} than yesterday
-          </span>
+    <div className="flex-1 min-w-[180px] rounded-2xl p-4 sm:p-6 flex flex-col justify-between gap-4">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <p className="text-gray-400 text-xs sm:text-sm font-medium">{title}</p>
+        <div className={`bg-${IconColor}-100 p-3 rounded-xl`}>
+          <Icon className={`w-4 h-4 text-${IconColor}-500`} strokeWidth={3} />
         </div>
       </div>
+ 
+      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">{value}</h2>
 
-      {/* Right Icon */}
-      <div className={`bg-${IconColor}-100 p-3 rounded-xl`}>
-  
-          <Icon className={`w-4 h-4 text-${IconColor}-500`} strokeWidth={3} />
+        <span
+          className={`flex items-center gap-1 text-xs sm:text-sm ${
+            isIncrease ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          {isIncrease ? (
+            <ArrowUp className="w-3 h-3" strokeWidth={3} />
+          ) : (
+            <ArrowDown className="w-3 h-3" strokeWidth={3} />
+          )}
+          {changeText} {changeType} than yesterday
+        </span>
       </div>
     </div>
   );
@@ -255,7 +273,7 @@ const Vulnerability = () => (
 );
 
 const Chip = ({ color, text }) => (
-    <span className={`${color} text-white text-xs px-2 py-1 rounded`}>
+    <span className={`${color} text-white text-xs px-2 py-1 rounded font-medium`}>
         {text}
     </span>
 );
