@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* MAIN DARK BACKGROUND */
+.premium-bg {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #0b0f14 0%,
+    #0f1c22 40%,
+    #071018 100%
+  );
+  overflow: hidden;
+}
+.gradient-glow {
+  position: absolute;
+  bottom: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 120, 40, 0.9) 0%,
+    rgba(255, 60, 40, 0.6) 30%,
+    rgba(255, 0, 80, 0.4) 50%,
+    transparent 70%
+  );
+
+  filter: blur(120px);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+button {
+  cursor: pointer;  
+}
